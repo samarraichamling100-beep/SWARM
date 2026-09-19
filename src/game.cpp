@@ -1,0 +1,39 @@
+#include "gameinfo.cpp"
+#include "playerbullet.cpp"
+
+class SWARM 
+{
+    private:
+    public:
+    SPACESHIP mainSpaceships;
+    INFOMENU Menu;
+    PlayerBullet PB;
+    void setup_elements()
+    {
+        mainSpaceships.setup_all_spaceships_elements();
+    }
+    void draw_elements()
+    {
+        HideCursor();
+        ClearBackground(BLACK);
+        Menu.Draw_Info(mainSpaceships.PlayerShip.Rect,PB.BulletList.size());
+        PB.Draw_PlayerBullet();
+        mainSpaceships.mouse.Draw_AimPointer();
+        mainSpaceships.DrawPlayerSpaceship();
+    }
+    void move_elements()
+    {
+        mainSpaceships.MovePlayerSpaceship();
+        PB.Move_PlayerBullet();
+    }
+    void check_elements()
+    {
+        PB.check_shooting(mainSpaceships.PlayerShip.Rect);
+        mainSpaceships.check_coners_collision();
+    }
+    void unload_elements()
+    {
+        mainSpaceships.mouse.Unload_pointer();
+        mainSpaceships.unload_PlrSpaceshipTexture();
+    }
+};
