@@ -1,5 +1,5 @@
 #include <string>
-#include "spacehship.cpp"
+#include "spaceship.cpp"
 
 class INFOMENU
 {
