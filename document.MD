@@ -35,3 +35,4 @@ Learned to use TextFormat
 
 
 Will do everything other in other days
+Made the bullet direction as well and made the code
