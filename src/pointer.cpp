@@ -26,6 +26,7 @@ class AIMTRACKER
     }
     void setup_AimPointer()
     {
+        //Defing things needed for it to draw the texture
         Image AimPointerImg = LoadImage("../Assets/Pointer.png");
         ImageResize(&AimPointerImg,100,100);
         AimPointer.Text = LoadTextureFromImage(AimPointerImg);
@@ -52,6 +53,7 @@ class AIMTRACKER
     }
     void Draw_AimPointer()
     {
+        //Drawing the Aim Pointer
         get_mousePosition();
         AimPointer.Rect.x = MousePos.x;
         AimPointer.Rect.y = MousePos.y;
@@ -67,6 +69,7 @@ class AIMTRACKER
     }
     void Unload_pointer()
     {
+        //Unloading when not necessary
         UnloadTexture(AimPointer.Text);
     }
 };
