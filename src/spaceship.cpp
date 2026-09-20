@@ -65,7 +65,6 @@ class SPACESHIP
 
     void DrawPlayerSpaceship()
     {
-        DrawRectangleRec(PlayerShip.Hitbox,RED);
         float DifferenceInX = mouse.MousePos.x - PlayerShip.Rect.x;
         float DifferenceInY = mouse.MousePos.y - PlayerShip.Rect.y;
 
@@ -94,27 +93,32 @@ class SPACESHIP
     }
     void check_coners_collision()
     {
-        if(PlayerShip.Hitbox.x > 1280 - 50)
+
+        float offset = PlayerShip.Rect.width / 9.0f;
+
+        // Left
+        if (PlayerShip.Hitbox.x < 0)
         {
-            PlayerShip.Rect.x = 1280 - 51;
-        }
-        else 
-        {
-            if(PlayerShip.Hitbox.x < 0 + 50)
-            {
-                PlayerShip.Rect.x = 100;
-            }
-            if(PlayerShip.Hitbox.y > 720 - 50)
-            {
-                PlayerShip.Rect.y = 720 - 51;
-            }
-            if(PlayerShip.Hitbox.y < 0 - 50)
-            {
-                PlayerShip.Rect.y = 51;
-            }
+            PlayerShip.Rect.x = offset;
         }
 
+        // Right
+        if (PlayerShip.Hitbox.x + PlayerShip.Hitbox.width > 1280)
+        {
+            PlayerShip.Rect.x = 1280 - PlayerShip.Hitbox.width + offset;
+        }
 
+        // Top
+        if (PlayerShip.Hitbox.y < 0)
+        {
+            PlayerShip.Rect.y = offset;
+        }
+
+        // Bottom
+        if (PlayerShip.Hitbox.y + PlayerShip.Hitbox.height > 720)
+        {
+            PlayerShip.Rect.y = 720 - PlayerShip.Hitbox.height + offset;
+        }
     }
     void unload_PlrSpaceshipTexture()
     {

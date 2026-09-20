@@ -9,4 +9,9 @@ int main ()
 
     std::cout << "List Size : " << List.size() << std::endl;
 
+    float a = 3;
+    float b = 3;
+
+    const float Y = a + b;
+    std::cout << Y << std::endl;
 }

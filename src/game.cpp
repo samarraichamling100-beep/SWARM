@@ -28,8 +28,9 @@ class SWARM
     }
     void check_elements()
     {
-        PB.check_shooting(mainSpaceships.PlayerShip.Rect);
+        PB.check_shooting(mainSpaceships.PlayerShip.Hitbox);
         mainSpaceships.check_coners_collision();
+        PB.delete_unnecessary_bullet();
     }
     void unload_elements()
     {
