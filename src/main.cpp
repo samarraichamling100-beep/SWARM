@@ -1,4 +1,4 @@
-
+//The main game
 
 #include "game.cpp"
 
