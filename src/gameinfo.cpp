@@ -1,6 +1,8 @@
 #include <string>
 #include "spaceship.cpp"
 
+
+//Just some info to show
 class INFOMENU
 {
     public:
