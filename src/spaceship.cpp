@@ -2,6 +2,7 @@
 #include <iostream>
 
 
+//structure for spaceship
 struct Spaceship
 {
     Texture Textur;
@@ -13,7 +14,7 @@ struct Spaceship
     float speed;
 };
 
-
+//Spaceship class
 class SPACESHIP 
 {   
     private:
@@ -23,11 +24,13 @@ class SPACESHIP
 
     void setup_all_spaceships_elements()
     {
+        //Directly using the mouse in here since the mouse and spaceship have a lot relation in this game so i direction defined it here
         mouse.setup_AimPointer();
         SetupPlayerShip();
     }
     void SetupPlayerShip()
     {
+        //Giving it its atributes
         Image PlrSpaceshipImg = LoadImage("../Assets/PlrSpaceship.png");
         ImageResize(&PlrSpaceshipImg,200,200);
         PlayerShip.Textur = LoadTextureFromImage(PlrSpaceshipImg);
@@ -65,10 +68,12 @@ class SPACESHIP
 
     void DrawPlayerSpaceship()
     {
+        //The Dx and dy
         float DifferenceInX = mouse.MousePos.x - PlayerShip.Rect.x;
         float DifferenceInY = mouse.MousePos.y - PlayerShip.Rect.y;
 
         float Angle = atan2(DifferenceInY,DifferenceInX) * RAD2DEG + 65.0f;
+        //Drawing the spaceship
         DrawTexturePro
         (
             PlayerShip.Textur
@@ -83,17 +88,20 @@ class SPACESHIP
 
     void MovePlayerSpaceship()
     {
+        //The basic movement
         float dt = GetFrameTime();
         if(IsKeyDown(KEY_W))PlayerShip.Rect.y -= PlayerShip.speed * dt;
         if(IsKeyDown(KEY_A))PlayerShip.Rect.x -= PlayerShip.speed * dt;
         if(IsKeyDown(KEY_D))PlayerShip.Rect.x += PlayerShip.speed * dt;
         if(IsKeyDown(KEY_S))PlayerShip.Rect.y += PlayerShip.speed * dt;
+        //Fixing the hitbox position hardcoded
         PlayerShip.Hitbox.x = PlayerShip.Rect.x - PlayerShip.Rect.width/9.0f;
         PlayerShip.Hitbox.y = PlayerShip.Rect.y - PlayerShip.Rect.height/9.0f;
     }
     void check_coners_collision()
     {
-
+        //Checking Collision for following
+        //offset to check
         float offset = PlayerShip.Rect.width / 9.0f;
 
         // Left
