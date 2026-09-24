@@ -7,11 +7,13 @@
 struct Bullet
 {
     //The bullet structure
-    Rectangle Rect = {0,0,5,10};
+    float BulletRadius = 5.0f;
+    Vector2 Position;
     //speed
     float Speed = 600.0f;
     //direction
     Vector2 Direction;
+
 };
 
 
@@ -19,20 +21,29 @@ class PlayerBullet
 {
     public:
     Bullet PlrBullet;
+    Sound BulletSound;
+    int tick = 0;
     std::vector<Bullet>BulletList = {};
-    std::vector<Vector2>PositionList{};
 
+
+    void Setup_bulletSound()
+    {
+        BulletSound = LoadSound("../assets/Bullet Sound.mp3");
+        SetSoundVolume(BulletSound,0.4);
+    }
     void Draw_PlayerBullet()
     {
         //Drawing all the bullets in bulletList
         for (auto & bullet : BulletList)
         {
-            DrawRectangleRec(bullet.Rect,YELLOW);
+            DrawCircle(bullet.Position.x,bullet.Position.y,bullet.BulletRadius,YELLOW);
         }
     }
     void check_shooting(Rectangle Hitbox)
     {
-        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+        tick ++;
+
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && tick >= 20)
         {
             Vector2 mousePosition = GetMousePosition();
 
@@ -56,12 +67,14 @@ class PlayerBullet
             //Creating new bullet to push
             Bullet newBullet;
             //StartingPos of new bullet
-            newBullet.Rect.x = shipPosition.x;
-            newBullet.Rect.y = shipPosition.y;
+            newBullet.Position.x = shipPosition.x;
+            newBullet.Position.y = shipPosition.y;
             //Applying the direction to new bullet
             newBullet.Direction = Direction;
             //Pushing back the new bullet to the bullet list
             BulletList.push_back(newBullet);
+            PlaySound(BulletSound);
+            tick = 0;
         }
     }
     void Move_PlayerBullet()
@@ -71,22 +84,25 @@ class PlayerBullet
         //We multiply the direction with speed * dt to get the speed to the mouse_position point when shooting
         for (auto &bullet : BulletList)
         {
-            bullet.Rect.x += bullet.Direction.x * bullet.Speed * dt;
-            bullet.Rect.y += bullet.Direction.y * bullet.Speed * dt;
+            bullet.Position.x += bullet.Direction.x * bullet.Speed * dt;
+            bullet.Position.y += bullet.Direction.y * bullet.Speed * dt;
         }
     }
     void delete_unnecessary_bullet()
     {
         //Deleting unnecssaray bullets (aka the bullets which are outside the screen)
-        //A cool lambda funtion 
         std::erase_if(BulletList,[](auto &bullet)
         {
             return 
-            bullet.Rect.y < 0 || 
-            bullet.Rect.y > 720 || 
-            bullet.Rect.x > 1280 || 
-            bullet.Rect.x < 0;
+            bullet.Position.y < 0 || 
+            bullet.Position.y > 720 || 
+            bullet.Position.x > 1280 || 
+            bullet.Position.x < 0;
         }
     );
+    }
+    void Unload_bullet_sound()
+    {
+        UnloadSound(BulletSound);
     }
 };

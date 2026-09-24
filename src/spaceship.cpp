@@ -10,6 +10,7 @@ struct Spaceship
     Rectangle Rect;
     Rectangle Hitbox;
     Vector2 origin;
+    int Health = 50;
     float rotation;
     float speed;
 };
@@ -24,7 +25,7 @@ class SPACESHIP
 
     void setup_all_spaceships_elements()
     {
-        //Directly using the mouse in here since the mouse and spaceship have a lot relation in this game so i direction defined it here
+        //Directly using the mouse in here since the mouse and spaceship have a lot relation in this game so i directly defined it here
         mouse.setup_AimPointer();
         SetupPlayerShip();
     }
@@ -72,7 +73,7 @@ class SPACESHIP
         float DifferenceInX = mouse.MousePos.x - PlayerShip.Rect.x;
         float DifferenceInY = mouse.MousePos.y - PlayerShip.Rect.y;
 
-        float Angle = atan2(DifferenceInY,DifferenceInX) * RAD2DEG + 65.0f;
+        float Angle = atan2(DifferenceInY,DifferenceInX) * RAD2DEG + 87.0f;
         //Drawing the spaceship
         DrawTexturePro
         (
