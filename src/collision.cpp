@@ -19,7 +19,7 @@ class Collisions
                 if(enemyHit)
                 {
                     enemy.Health = 0;
-                    sp.Health -= 10;
+                    sp.Health -= 1;
                     std:: cout << "SP- HEALTH : " << sp.Health << std::endl;
                     bool Dead  = sp.Health <= 0;
                     if(Dead)

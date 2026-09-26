@@ -10,7 +10,7 @@ struct Spaceship
     Rectangle Rect;
     Rectangle Hitbox;
     Vector2 origin;
-    int Health = 50;
+    int Health = 5;
     float rotation;
     float speed;
 };
@@ -22,6 +22,8 @@ class SPACESHIP
     public:
     Spaceship PlayerShip;
     AIMTRACKER mouse;
+    int secondSurived;
+    int tick;
 
     void setup_all_spaceships_elements()
     {
@@ -65,7 +67,19 @@ class SPACESHIP
         };
         PlayerShip.rotation = 0.0f;
         PlayerShip.speed = 300;
-    }   
+    }
+    void GetTime(bool gameover)
+    {
+        tick ++;
+        if (tick == 60 && !gameover)
+        {
+            secondSurived ++;
+            std::cout << "One second has passed " << std::endl;
+            std::cout << "secondSurived : " << secondSurived << std::endl;
+            tick = 0;
+        }
+
+    }
 
     void DrawPlayerSpaceship()
     {
@@ -86,7 +100,12 @@ class SPACESHIP
         );
 
     }
-
+    void DrawHPBar()
+    {
+        for(int health = 0;health < PlayerShip.Health/10;health ++)
+        {
+        }
+    }
     void MovePlayerSpaceship()
     {
         //The basic movement

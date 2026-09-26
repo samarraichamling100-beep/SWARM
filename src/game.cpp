@@ -25,7 +25,14 @@ class SWARM
         mainSpaceships.DrawPlayerSpaceship();
         enemy.Draw_WeakEnemy();
         Menu.ShowScore(enemy.Score);
-        Menu.Draw_Info(mainSpaceships.PlayerShip.Rect,PB.BulletList.size(),enemy.EnemyList.size(),enemy.Score);
+        Menu.Draw_Info
+        (
+            mainSpaceships.PlayerShip.Rect,
+            PB.BulletList.size(),
+            enemy.EnemyList.size(),
+            enemy.Score,
+            mainSpaceships.secondSurived
+        );
     }
     //Move
     void move_elements()
@@ -35,13 +42,15 @@ class SWARM
         enemy.Move_WeakEnemy(mainSpaceships.PlayerShip.Rect);
     }
     //Check
-    void check_elements(SWARM game)
+    void check_elements()
     {
+        mainSpaceships.GetTime(Menu.gameover);
         enemy.CreateNewEnemy();
         PB.check_shooting(mainSpaceships.PlayerShip.Hitbox);
         mainSpaceships.check_coners_collision();
         PB.delete_unnecessary_bullet();
         enemy.Delete_Killed_bullets();
+        check_restart();
     }
     void check_collision()
     {
@@ -54,5 +63,31 @@ class SWARM
         mainSpaceships.mouse.Unload_pointer();
         mainSpaceships.unload_PlrSpaceshipTexture();
         PB.Unload_bullet_sound();
+    }
+    void restart_game()
+    {
+    // Reset player
+        mainSpaceships.PlayerShip.Rect = { 600, 300, 200, 200 };
+        mainSpaceships.PlayerShip.Health = 100;
+        mainSpaceships.PlayerShip.rotation = 0;
+
+        // Remove all bullets
+        PB.BulletList.clear();
+
+        // Remove all enemies
+        enemy.EnemyList.clear();
+
+        // Reset score
+        enemy.Score = 0;
+
+        // Reset game over
+        Menu.gameover = false;
+    }
+    void check_restart()
+    {
+        if (Menu.gameover && IsKeyPressed(KEY_R))
+        {
+            restart_game();
+        }
     }
 };

@@ -53,19 +53,7 @@ class ENEMIES
     //Left Side
     std::uniform_real_distribution<float> LeftSideX{50,150};
     std::uniform_real_distribution<float> LeftSideY{50,670};
-    
-    Vector2 RotatePoint(Vector2 Point,Vector2 Center,float angle)
-    {
-        float rad = angle * DEG2RAD;
-        float x = Point.x - Center.x;
-        float y = Point.y - Center.y;
 
-        return 
-        {
-            Center.x + x * cosf(rad) - y * sinf(rad),
-            Center.y + x * sinf(rad) + y * cosf(rad)
-        };
-    }
     std::string GetSide()
     {
         int SideIndex = SideIndexGen(gen);
@@ -191,5 +179,4 @@ class ENEMIES
         }
     );
     }
-
 };

@@ -14,12 +14,13 @@ int main ()
     SetTargetFPS(fps);
     InitAudioDevice();
     SWARM game;
+
     game.setup_elements();
     
     while(!WindowShouldClose())
     {
         ClearBackground(BLACK);
-        game.check_elements(game);
+        game.check_elements();
         game.check_collision();
         game.move_elements();
         BeginDrawing();
